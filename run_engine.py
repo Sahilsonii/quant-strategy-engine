@@ -2,6 +2,7 @@ import pandas as pd
 import json
 import argparse
 import importlib
+import os
 
 from engine.regimes.logic import detect_regime
 
@@ -87,9 +88,12 @@ def main(config_path):
     df_trades = pd.DataFrame(trades)
     df_trades = df_trades.sort_values("entry_dt")
 
-    df_trades.to_excel("outputs/orders.xlsx", index=False)
+    output_dir = "outputs"
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "orders.xlsx")
+    df_trades.to_excel(output_path, index=False)
 
-    print("✅ Engine run complete! Check outputs/orders.xlsx")
+    print(f"✅ Engine run complete! Check {output_path}")
 
 # ---------------------------
 # CLI ENTRY
@@ -100,3 +104,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(args.config)
+
+
+
+'''hello there these are the changes I made to the file'''    
